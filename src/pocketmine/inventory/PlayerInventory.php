@@ -27,6 +27,7 @@ use pocketmine\event\entity\EntityInventoryChangeEvent;
 use pocketmine\event\player\PlayerItemHeldEvent;
 use pocketmine\item\Item;
 use pocketmine\nbt\tag\ListTag;
+use pocketmine\network\mcpe\protocol\types\ContainerIds;
 use pocketmine\network\mcpe\protocol\ContainerSetContentPacket;
 use pocketmine\network\mcpe\protocol\ContainerSetSlotPacket;
 use pocketmine\network\mcpe\protocol\MobArmorEquipmentPacket;
@@ -212,6 +213,25 @@ class PlayerInventory extends BaseInventory {
 	 */
 	public function getHotbar(){
 		return $this->hotbar;
+	}
+
+	/**
+	 * Resets hotbar links to their original defaults.
+	 * @param bool $send Whether to send changes to the holder.
+	 */
+	public function resetHotbar(bool $send = true) {
+		$this->hotbar = \SplFixedArray::fromArray(range(0, $this->getHotbarSize() - 1, 1));
+		if ($send) {
+			$this->sendContents($this->getHolder());
+		}
+	}
+
+	public function sendHotbar(){
+		$pk = new PlayerHotbarPacket();
+		$pk->windowId = ContainerIds::INVENTORY;
+		$pk->selectedHotbarSlot = $this->getHeldItemIndex();
+		$pk->slots = array_map(function(int $link){ return $link + $this->getHotbarSize(); }, $this->getHotbar());
+		$this->getHolder()->dataPacket($pk);
 	}
 
 	/**

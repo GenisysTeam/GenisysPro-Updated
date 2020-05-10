@@ -25,12 +25,14 @@ use pocketmine\network\mcpe\protocol\ProtocolInfo;
 use pocketmine\utils\Color;
 
 class ClientboundMapItemDataPacket extends DataPacket {
+
 	const NETWORK_ID = ProtocolInfo::CLIENTBOUND_MAP_ITEM_DATA_PACKET;
 	const BITFLAG_TEXTURE_UPDATE = 0x02;
 	const BITFLAG_DECORATION_UPDATE = 0x04;
 	const BITFLAG_ENTITY_UPDATE = 0x08;
 	public $mapId;
 	public $type;
+	public $dimensionId = DimensionIds::OVERWORLD;
 	public $eids = [];
 	public $scale;
 	public $decorations = [];
@@ -47,6 +49,7 @@ class ClientboundMapItemDataPacket extends DataPacket {
 	public function decode(){
 		$this->mapId = $this->getVarInt();
 		$this->type = $this->getUnsignedVarInt();
+		$this->dimensionId = $this->getByte();
 		if(($this->type & self::BITFLAG_ENTITY_UPDATE) !== 0){
 			$count = $this->getUnsignedVarInt();
 			for($i = 0; $i < $count; ++$i){
@@ -98,6 +101,7 @@ class ClientboundMapItemDataPacket extends DataPacket {
 			$type |= self::BITFLAG_TEXTURE_UPDATE;
 		}
 		$this->putUnsignedVarInt($type);
+		$this->putByte($this->dimensionId);
 		if(($type & self::BITFLAG_ENTITY_UPDATE) !== 0){ //TODO: find out what these are for
 			$this->putUnsignedVarInt($eidsCount);
 			foreach($this->eids as $eid){
@@ -129,4 +133,5 @@ class ClientboundMapItemDataPacket extends DataPacket {
 			}
 		}
 	}
+
 }
