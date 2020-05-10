@@ -5,7 +5,7 @@ GenisysPro
 
 | ![Download icon](https://storage.googleapis.com/material-icons/external-assets/v4/icons/svg/ic_file_download_black_18px.svg) PHAR |  Travis CI | GitLab |
 | :---: | :---: | :---: |
-| [![Download](https://img.shields.io/badge/download-latest-blue.svg)](https://genisyspro.github.io/GenisysPro/GenisysPro.phar) | [![Travis CI](https://travis-ci.org/GenisysPro/GenisysPro.svg?branch=master)](https://travis-ci.org/GenisysPro/GenisysPro) | [![GitLab](https://gitlab.com/GenisysPro/GenisysPro/badges/master/build.svg)](https://gitlab.com/GenisysPro/GenisysPro/commits/master) |
+| [![Download](https://img.shields.io/badge/download-latest-blue.svg)](https://github.com/GenisysTeam/GenisysPro-Updated/releases/latest/download/GenisysPro.phar) | [![Travis CI](https://travis-ci.org/GenisysPro/GenisysPro.svg?branch=master)](https://travis-ci.org/GenisysPro/GenisysPro) | [![GitLab](https://gitlab.com/GenisysPro/GenisysPro/badges/master/build.svg)](https://gitlab.com/GenisysPro/GenisysPro/commits/master) |
 
 | ![Website](https://storage.googleapis.com/material-icons/external-assets/v4/icons/svg/ic_public_black_18px.svg) | ![Chat](https://storage.googleapis.com/material-icons/external-assets/v4/icons/svg/ic_chat_black_18px.svg) | ![Forums](https://storage.googleapis.com/material-icons/external-assets/v4/icons/svg/ic_forum_black_18px.svg) |
 | :---: | :---: | :---: |
