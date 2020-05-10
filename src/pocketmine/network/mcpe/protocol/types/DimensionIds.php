@@ -1,7 +1,7 @@
 
 <?php
 
-namespace pocketmine\network\protocol\types;
+namespace pocketmine\network\mcpe\protocol\types;
 
 interface DimensionIds {
 
