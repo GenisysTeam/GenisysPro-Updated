@@ -15,12 +15,20 @@ class PlayerHotbarPacket extends DataPacket {
     public function decode() {
         $this->selectedHotbarSlot = $this->getUnsignedVarInt();
         $this->windowId = $this->getByte();
+		$count = $this->getUnsignedVarInt();
+		for ($i = 0; $i < $count; ++$i) {
+			$this->slots[$i] = Binary::signInt($this->getUnsignedVarInt());
+		}
         $this->selectHotbarSlot = $this->getBool();
     }
 
     public function encode() {
         $this->putUnsignedVarInt($this->selectedHotbarSlot);
         $this->putByte($this->windowId);
+		$this->putUnsignedVarInt(count($this->slots));
+		foreach ($this->slots as $slot) {
+			$this->putUnsignedVarInt($slot);
+		}
         $this->putBool($this->selectHotbarSlot);
     }
 
