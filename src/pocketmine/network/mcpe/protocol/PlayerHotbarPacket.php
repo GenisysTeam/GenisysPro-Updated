@@ -1,12 +1,12 @@
 <?php
 
-namespace pocketmine\network\protocol;
+namespace pocketmine\mcpe\network\protocol;
 
-use pocketmine\network\protocol\types\ContainerIds;
+use pocketmine\network\mcpe\protocol\types\ContainerIds;
 
 class PlayerHotbarPacket extends DataPacket {
 
-    const NETWORK_ID = Info::PLAYER_HOTBAR_PACKET;
+    const NETWORK_ID = ProtocolInfo::PLAYER_HOTBAR_PACKET;
 
     public $selectedHotbarSlot;
     public $windowId = ContainerIds::INVENTORY;
