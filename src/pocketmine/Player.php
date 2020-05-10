@@ -120,6 +120,7 @@ use pocketmine\nbt\tag\ListTag;
 use pocketmine\nbt\tag\LongTag;
 use pocketmine\nbt\tag\ShortTag;
 use pocketmine\nbt\tag\StringTag;
+use pocketmine\network\mcpe\protocol\types\ContainerIds;
 use pocketmine\network\mcpe\protocol\AdventureSettingsPacket;
 use pocketmine\network\mcpe\protocol\AnimatePacket;
 use pocketmine\network\mcpe\protocol\AvailableCommandsPacket;
@@ -135,6 +136,7 @@ use pocketmine\network\mcpe\protocol\ProtocolInfo;
 use pocketmine\network\mcpe\protocol\InteractPacket;
 use pocketmine\network\mcpe\protocol\MovePlayerPacket;
 use pocketmine\network\mcpe\protocol\PlayerActionPacket;
+use pocketmine\network\mcpe\protocol\PlayerHotbarPacket;
 use pocketmine\network\mcpe\protocol\PlayStatusPacket;
 use pocketmine\network\mcpe\protocol\ResourcePackChunkDataPacket;
 use pocketmine\network\mcpe\protocol\ResourcePackClientResponsePacket;
@@ -4310,6 +4312,19 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 			$this->foodTick = 0;
 			$this->getAttributeMap()->getAttribute(Attribute::HEALTH)->setMaxValue($this->getMaxHealth())->setValue($amount, true);
 		}
+	}
+
+	public function handlePlayerHotbar(PlayerHotbarPacket $packet) {
+		if ($packet->windowId !== ContainerIds::INVENTORY) {
+			return false;
+		}
+
+		foreach ($packet->slots as $hotbarSlot => $slotLink) {
+			$this->inventory->setHotbarSlotIndex($hotbarSlot, $slotLink === -1 ? $slotLink : $slotLink - 9);
+		}
+
+		$this->inventory->equipItem($packet->selectedHotbarSlot);
+		return true;
 	}
 
 	/**
