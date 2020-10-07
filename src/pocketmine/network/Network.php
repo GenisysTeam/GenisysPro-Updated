@@ -61,6 +61,7 @@ use pocketmine\network\mcpe\protocol\ExplodePacket;
 use pocketmine\network\mcpe\protocol\FullChunkDataPacket;
 use pocketmine\network\mcpe\protocol\HurtArmorPacket;
 use pocketmine\network\mcpe\protocol\ProtocolInfo;
+// use pocketmine\network\mcpe\protocol\Info105 as ProtocolInfo105;
 use pocketmine\network\mcpe\protocol\InteractPacket;
 use pocketmine\network\mcpe\protocol\InventoryActionPacket;
 use pocketmine\network\mcpe\protocol\ItemFrameDropItemPacket;
@@ -123,6 +124,9 @@ class Network {
 	/** @var \SplFixedArray */
 	private $packetPool;
 
+	/** @var \SplFixedArray */
+//	private $packetPool105;
+
 	/** @var Server */
 	private $server;
 
@@ -145,6 +149,7 @@ class Network {
 	public function __construct(Server $server){
 
 		$this->registerPackets();
+//		$this->registerPackets105();
 
 		$this->server = $server;
 	}
@@ -252,6 +257,14 @@ class Network {
 	public function registerPacket($id, $class){
 		$this->packetPool[$id] = new $class;
 	}
+
+	/**
+	 * @param int        $id 0-255
+	 * @param DataPacket $class
+	 */
+//	public function registerPacket105($id, $class){
+//		$this->packetPool105[$id] = new $class;
+//	}
 
 	/**
 	 * @return Server
