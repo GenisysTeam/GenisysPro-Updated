@@ -25,15 +25,17 @@
  */
 
 namespace pocketmine\network\protocol;
+
 interface Info {
+
 	/**
 	 * Actual Minecraft: PE protocol version
 	 */
 
 	const CURRENT_PROTOCOL = 113;
-	const ACCEPTED_PROTOCOLS = [110, 111, 112, 113, 135];
-	const MINECRAFT_VERSION = ["v1.1.0", "v1.1.1", "v1.1.2", "v1.1.3", "v1.1.4", "v1.1.5", "v1.1.7", "1.2.0.25 beta"];
-	const MINECRAFT_VERSION_NETWORK = "1.2.0.25 beta";
+	const ACCEPTED_PROTOCOLS = [134, 135, 136, 137];
+	const MINECRAFT_VERSION = ["v1.x"];
+	const MINECRAFT_VERSION_NETWORK = "1.2";
 
 	const LOGIN_PACKET = 0x01;
 	const PLAY_STATUS_PACKET = 0x02;
@@ -128,4 +130,5 @@ interface Info {
 	const STRUCTURE_BLOCK_UPDATE_PACKET = 0x5b;
 	const SHOW_STORE_OFFER_PACKET = 0x5c;
 	const PURCHASE_RECEIPT_PACKET = 0x5d;
+
 }
