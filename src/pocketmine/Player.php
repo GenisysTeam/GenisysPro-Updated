@@ -212,7 +212,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 
 	protected $randomClientId;
 
-	protected $protocol;
+	public $protocol = 0;
 
 	/** @var Vector3 */
 	protected $forceMovement = null;
@@ -357,6 +357,14 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 	public function getDeviceModel(){
 		return $this->deviceModel;
 	}
+
+	/*public function getPlayerProtocol() {
+		if ($this->protocol == 105) {
+			return 105;
+		} else {
+			return 100;
+		}
+	}*/
 
 	/**
 	 * @return mixed
@@ -984,6 +992,8 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 		if($this->connected === false){
 			return;
 		}
+
+		$data = $payload[$this->getPlayerProtocol()];
 
 		$this->usedChunks[Level::chunkHash($x, $z)] = true;
 		$this->chunkLoadCount++;
