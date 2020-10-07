@@ -2155,22 +2155,25 @@ class Server{
 		Timings::$playerNetworkTimer->startTiming();
 		$str = "";
 
+		$newPacket = [];
 		foreach($packets as $p){
-			if($p instanceof DataPacket){
-				if(!$p->isEncoded){
-					$p->encode();
+			foreach ($neededProtocol as $protocol) {
+				if ($p instanceof DataPacket) {
+					if (!$p->isEncoded || count($neededProtocol) > 1) {					
+						$p->encode($protocol);
+					}
+					$newPackets[$protocol][] = $p->buffer;
+				} elseif (count($neededProtocol) == 1) {
+					$newPackets[$protocol][] = $p;
 				}
-				$str .= Binary::writeUnsignedVarInt(strlen($p->buffer)) . $p->buffer;
-			}else{
-				$str .= Binary::writeUnsignedVarInt(strlen($p)) . $p;
 			}
 		}
 
 		$targets = [];
+		$neededProtocol = [];
 		foreach($players as $p){
-			if($p->isConnected()){
-				$targets[] = $this->identifiers[spl_object_hash($p)];
-			}
+			$targets[] = array($p->getIdentifier(), $p->getPlayerProtocol());
+			$neededProtocol[$p->getPlayerProtocol()] = $p->getPlayerProtocol();
 		}
 
 		if(!$forceSync and $this->networkCompressionAsync){
@@ -2388,6 +2391,7 @@ class Server{
 	 * Starts the PocketMine-MP server and starts processing ticks and packets
 	 */
 	public function start(){
+		DataPacket::initPackets();
 		if($this->getConfigBoolean("enable-query", true) === true){
 			$this->queryHandler = new QueryHandler();
 		}
