@@ -33,9 +33,17 @@ interface ProtocolInfo {
 	 */
 
 	const CURRENT_PROTOCOL = 120;
-	const ACCEPTED_PROTOCOLS = [134, 135, 136, 137];
+	const ACCEPTED_PROTOCOLS = [134, 135, 136, 137, 140, 150, 160];
 	const MINECRAFT_VERSION = ["v1.x"];
 	const MINECRAFT_VERSION_NETWORK = "1.2";
+
+	const PROTOCOL_120 = 120; // 1.2.0.xx (beta)
+	const PROTOCOL_134 = 134; // 1.2.0.20, 1.2.0.22
+	const PROTOCOL_136 = 136; // 1.2.0.31
+	const PROTOCOL_137 = 137; // 1.2.0
+	const PROTOCOL_140 = 140; // 1.2.5.11
+	const PROTOCOL_150 = 150; // 1.2.6
+	const PROTOCOL_160 = 160; // 1.2.7
 
 	const LOGIN_PACKET = 0x01;
 	const PLAY_STATUS_PACKET = 0x02;
